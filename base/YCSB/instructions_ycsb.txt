@@ -1,0 +1,27 @@
+Set up JDK and maven:
+    sudo apt install default-jdk
+
+    wget http://ftp.heanet.ie/mirrors/www.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
+    sudo tar xzf apache-maven-*-bin.tar.gz -C /usr/local
+    cd /usr/local
+    sudo ln -s apache-maven-* maven
+    sudo vi /etc/profile.d/maven.sh
+
+    echo "M2_HOME=/usr/local/maven" | sudo tee /etc/profile.d/maven.sh
+    echo "export PATH=${M2_HOME}/bin:${PATH}" | sudo tee -a /etc/profile.d/maven.sh
+
+    bash
+    mvn -version
+
+
+
+Set up YCSB for memcached:
+    git clone http://github.com/brianfrankcooper/YCSB.git
+    cd YCSB
+    mvn -pl site.ycsb:memcached-binding -am clean package
+
+Now ready to load the data (execute in YCSB directory):
+    ./bin/ycsb load memcached -s -P workloads/workloada -p memcached.hosts=127.0.0.1 (look into flags like recordcount=10000000 -threads 16)
+
+And run benchmark:
+    ./bin/ycsb run memcached -s -P workloads/workloada -p memcached.hosts=127.0.0.1 (look into flags like recordcount=10000000 -threads 16)

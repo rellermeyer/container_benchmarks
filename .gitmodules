@@ -1,0 +1,9 @@
+[submodule "startup/nsdi2020-data"]
+	path = startup/nsdi2020-data
+	url = https://github.com/firecracker-microvm/nsdi2020-data.git
+[submodule "base/YCSB/YCSB"]
+	path = base/YCSB/YCSB
+	url = https://github.com/brianfrankcooper/YCSB.git
+[submodule "base/osv"]
+	path = base/osv
+	url = https://github.com/cloudius-systems/osv.git

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#Set up a fresh ubuntu KVM guest
+. ../../base/kvm/start_new.sh
+
+IPERF_HOME="/home/ubuntu/iperf3"
+
+ssh $SSH_OPTIONS ubuntu@$IP_ADDR "sudo apt-get update && sudo apt-get install -y git make gcc lib32z1"
+
+ssh $SSH_OPTIONS ubuntu@$IP_ADDR "mkdir -p $IPERF_HOME"
+scp $SSH_OPTIONS install_KVM_side.sh ubuntu@$IP_ADDR:$IPERF_HOME/install_KVM_side.sh
+
+ssh $SSH_OPTIONS ubuntu@$IP_ADDR "chmod +x $IPERF_HOME/install_KVM_side.sh && $IPERF_HOME/install_KVM_side.sh"
+
+. ../bench_base.sh
+bench_iperf $IP_ADDR "kvm"

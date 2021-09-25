@@ -1,0 +1,7 @@
+#!/sbin/openrc-run
+
+description="Prints a msg"
+
+start() {
+	printf "bbbooted"
+}
